@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 =begin
-  * Name: Excerise 3
+  * Name: Excerise 3 Part 2
   * Description: Convert seconds into human readable age format
   * Author: Rahul Trikha
   * Date: 16-01-2011
@@ -10,12 +10,15 @@
 
 # Constants for defining time
 DAYS_IN_AN_YEAR = 365
-DAYS_IN_AN_MONTH = 30.47
+DAYS_IN_AN_MONTH = 30.42
 HOURS_IN_A_DAY = 24
 MINUTES_IN_AN_HOUR = 60
 SECONDS_IN_A_MINUTE = 60
 
 
+# Method to convert units in to plural
+# e.g (10, "second") is "10 seconds"
+#
 def plural(quantity, unit)
   "#{quantity.round} #{unit}#{(quantity == 1) ? "" : "s"}" if quantity > 0
 end
@@ -84,9 +87,15 @@ doctest: convert_seconds_to_human_readable_age method, given 36000 will return "
 => "10 hours"
 doctest: convert_seconds_to_human_readable_age method, given 86400 will return "1 day"
 >> convert_seconds_to_human_readable_age(86400)
-=> "1 month"
+=> "1 day"
 doctest: convert_seconds_to_human_readable_age method, given 864000 will return "10 days"
 >> convert_seconds_to_human_readable_age(864000)
+=> "10 days"
+doctest: convert_seconds_to_human_readable_age method, given 86400 will return "1 month"
+>> convert_seconds_to_human_readable_age(2628288)
+=> "1 month"
+doctest: convert_seconds_to_human_readable_age method, given 864000 will return "10 months"
+>> convert_seconds_to_human_readable_age(26282880)
 => "10 months"
 doctest: convert_seconds_to_human_readable_age method, given 31536000 will return "1 year"
 >> convert_seconds_to_human_readable_age(31536000)
@@ -94,7 +103,19 @@ doctest: convert_seconds_to_human_readable_age method, given 31536000 will retur
 doctest: convert_seconds_to_human_readable_age method, given 315360000 will return "10 years"
 >> convert_seconds_to_human_readable_age(315360000)
 => "10 years"
-doctest: convert_seconds_to_human_readable_age method, given 31536001 will return "1 year 1 second"
+doctest: convert_seconds_to_human_readable_age method, given 31536001 will return "1 year, 1 second"
 >> convert_seconds_to_human_readable_age(31536001)
 => "1 year, 1 second"
+doctest: convert_seconds_to_human_readable_age method, given 31536001 will return "1 year, 5 seconds"
+>> convert_seconds_to_human_readable_age(31536005)
+=> "1 year, 5 seconds"
+doctest: convert_seconds_to_human_readable_age method, given 31539600 will return "1 year, 1 hour"
+>> convert_seconds_to_human_readable_age(31539600)
+=> "1 year, 1 hour"
+doctest: convert_seconds_to_human_readable_age method, given 31539600 will return "1 year, 2 months, 6 hours"
+>> convert_seconds_to_human_readable_age(36814176)
+=> "1 year, 2 months, 6 hours"
+doctest: convert_seconds_to_human_readable_age method, given 73628352 will return "2 years, 4 months, 12 hours"
+>> convert_seconds_to_human_readable_age(73628352)
+=> "2 years, 4 months, 12 hours"
 =end

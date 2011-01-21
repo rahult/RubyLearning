@@ -17,7 +17,7 @@ SECONDS_IN_A_MINUTE = 60
 
 
 def plural(quantity, unit)
-  "#{quantity.round} #{unit}#{(quantity == 1) ? "" : "s"}"
+  "#{quantity.round} #{unit}#{(quantity == 1) ? "" : "s"}" if quantity > 0
 end
 
 # Method to convert seconds into human readable year format
@@ -28,23 +28,23 @@ def convert_seconds_to_human_readable_age(age_in_seconds=0)
   human_readable_age = []
 
   result = age_in_seconds.divmod(DAYS_IN_AN_YEAR * HOURS_IN_A_DAY * MINUTES_IN_AN_HOUR * SECONDS_IN_A_MINUTE)
-  human_readable_age << plural(result[0], "year") if result[0] > 0
+  human_readable_age << plural(result[0], "year")
 
   result = result[1].divmod(DAYS_IN_AN_MONTH * HOURS_IN_A_DAY * MINUTES_IN_AN_HOUR * SECONDS_IN_A_MINUTE)
-  human_readable_age << plural(result[0], "month") if result[0] > 0
+  human_readable_age << plural(result[0], "month")
 
   result = result[1].divmod(HOURS_IN_A_DAY * MINUTES_IN_AN_HOUR * SECONDS_IN_A_MINUTE)
-  human_readable_age << plural(result[0], "day") if result[0] > 0
+  human_readable_age << plural(result[0], "day")
 
   result = result[1].divmod(MINUTES_IN_AN_HOUR * SECONDS_IN_A_MINUTE)
-  human_readable_age << plural(result[0], "hour") if result[0] > 0
+  human_readable_age << plural(result[0], "hour")
 
   result = result[1].divmod(SECONDS_IN_A_MINUTE)
-  human_readable_age << plural(result[0], "minute") if result[0] > 0
+  human_readable_age << plural(result[0], "minute")
 
-  human_readable_age << plural(result[1], "second") if result[1] > 0
+  human_readable_age << plural(result[1], "second")
 
-  return human_readable_age.join(", ")
+  return human_readable_age.compact.join(", ")
 
 end
 
@@ -54,7 +54,7 @@ begin
 
   # Given data for test in seconds
   [979000000, 2158493738, 246144023, 1270166272, 1025600095].each do |age|
-    puts convert_seconds_to_human_readable_age(age)
+    puts "#{age} seconds is #{convert_seconds_to_human_readable_age(age)}"
   end
 
 end if __FILE__ == $0
@@ -79,9 +79,6 @@ doctest: convert_seconds_to_human_readable_age method, given 600 will return "10
 doctest: convert_seconds_to_human_readable_age method, given 3600 will return "1 hour"
 >> convert_seconds_to_human_readable_age(3600)
 => "1 hour"
-doctest: convert_seconds_to_human_readable_age method, given 36000 will return "10 hours"
->> convert_seconds_to_human_readable_age(36000)
-=> "10 hours"
 doctest: convert_seconds_to_human_readable_age method, given 36000 will return "10 hours"
 >> convert_seconds_to_human_readable_age(36000)
 => "10 hours"

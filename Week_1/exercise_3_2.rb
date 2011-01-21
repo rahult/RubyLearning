@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 =begin
   * Name: Excerise 3
   * Description: Convert seconds into human readable age format
@@ -8,33 +10,41 @@
 
 # Constants for defining time
 DAYS_IN_AN_YEAR = 365
+DAYS_IN_AN_MONTH = 30.47
 HOURS_IN_A_DAY = 24
 MINUTES_IN_AN_HOUR = 60
 SECONDS_IN_A_MINUTE = 60
+
+
+def plural(quantity, unit)
+  "#{quantity.round} #{unit}#{(quantity == 1) ? "" : "s"}"
+end
 
 # Method to convert seconds into human readable year format
 # e.g 31536000 seconds is 1 year
 #
 def convert_seconds_to_human_readable_age(age_in_seconds=0)
 
-  age_in_seconds = age_in_seconds.abs
+  human_readable_age = []
 
-  case age_in_seconds
-  when 0...60
-    (age_in_seconds == 1) ? "1 second" : "#{age_in_seconds} seconds"
-  when 60...3600
-    age_in_minutes = age_in_seconds / 60
-    (age_in_minutes == 1) ? "1 minute" : "#{age_in_minutes} minutes"
-  when 3600...86400
-    age_in_hours = age_in_seconds / (60 * 60)
-    (age_in_hours == 1) ? "1 hour" : "#{age_in_hours} hours"
-  when 86400...31536000
-    age_in_months = age_in_seconds / (60 * 60 * 24)
-    (age_in_months == 1) ? "1 month" : "#{age_in_months} months"
-  else
-    age_in_years = age_in_seconds / (60 * 60 * 24 * 365)
-    (age_in_years == 1) ? "1 year" : "#{age_in_years} years"
-  end
+  result = age_in_seconds.divmod(DAYS_IN_AN_YEAR * HOURS_IN_A_DAY * MINUTES_IN_AN_HOUR * SECONDS_IN_A_MINUTE)
+  human_readable_age << plural(result[0], "year") if result[0] > 0
+
+  result = result[1].divmod(DAYS_IN_AN_MONTH * HOURS_IN_A_DAY * MINUTES_IN_AN_HOUR * SECONDS_IN_A_MINUTE)
+  human_readable_age << plural(result[0], "month") if result[0] > 0
+
+  result = result[1].divmod(HOURS_IN_A_DAY * MINUTES_IN_AN_HOUR * SECONDS_IN_A_MINUTE)
+  human_readable_age << plural(result[0], "day") if result[0] > 0
+
+  result = result[1].divmod(MINUTES_IN_AN_HOUR * SECONDS_IN_A_MINUTE)
+  human_readable_age << plural(result[0], "hour") if result[0] > 0
+
+  result = result[1].divmod(SECONDS_IN_A_MINUTE)
+  human_readable_age << plural(result[0], "minute") if result[0] > 0
+
+  human_readable_age << plural(result[1], "second") if result[1] > 0
+
+  return human_readable_age.join(", ")
 
 end
 
@@ -43,7 +53,9 @@ end
 begin
 
   # Given data for test in seconds
-  ages_in_seconds = [979000000, 2158493738, 246144023, 1270166272, 1025600095]
+  [979000000, 2158493738, 246144023, 1270166272, 1025600095].each do |age|
+    puts convert_seconds_to_human_readable_age(age)
+  end
 
 end if __FILE__ == $0
 
@@ -51,7 +63,7 @@ end if __FILE__ == $0
 =begin
 doctest: convert_seconds_to_human_readable_age method, given 0 will return "0 seconds"
 >> convert_seconds_to_human_readable_age(0)
-=> "0 seconds"
+=> ""
 doctest: convert_seconds_to_human_readable_age method, given 1 will return "1 second"
 >> convert_seconds_to_human_readable_age(1)
 => "1 second"
@@ -85,7 +97,7 @@ doctest: convert_seconds_to_human_readable_age method, given 31536000 will retur
 doctest: convert_seconds_to_human_readable_age method, given 315360000 will return "10 years"
 >> convert_seconds_to_human_readable_age(315360000)
 => "10 years"
-doctest: convert_seconds_to_human_readable_age method, given 31536000 will return "1 years 2 months"
->> convert_seconds_to_human_readable_age(315360000)
-=> "10 years"
+doctest: convert_seconds_to_human_readable_age method, given 31536001 will return "1 year 1 second"
+>> convert_seconds_to_human_readable_age(31536001)
+=> "1 year, 1 second"
 =end

@@ -4,7 +4,7 @@
   * Name: Excerise 3 Part 2
   * Description: Convert seconds into human readable age format
   * Author: Rahul Trikha
-  * Date: 16-01-2011
+  * Date: 21-01-2011
   * Licensed under the MIT license
 =end
 

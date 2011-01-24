@@ -14,16 +14,14 @@
 #
 def convert_to_celsius(temperature=0, from="fahrenheit")
   case from
-  when "fahrenheit"
+  when "fahrenheit", "f", "fah"
     (temperature - 32) * (5.0 / 9)
-  when "kelvin"
+  when "kelvin", "k", "kel"
     temperature - 273.15
-  when "rankine"
+  when "rankine", "r", "ran"
     (temperature - 491.67) * (5.0 / 9)
-  when "celsius"
+  when "celsius", "c", "cel"
     temperature
-  else
-    return false
   end
 end
 
@@ -33,16 +31,14 @@ end
 #
 def convert_from_celsius(temperature, to)
   case to
-  when "fahrenheit"
+  when "fahrenheit", "f", "fah"
     temperature * (9.0 / 5) + 32
-  when "kelvin"
+  when "kelvin", "k", "kel"
     temperature + 273.15
-  when "rankine"
+  when "rankine", "r", "ran"
     (temperature + 491.67) * (9.0 / 5)
-  when "celsius"
+  when "celsius", "c", "cel"
     temperature
-  else
-    return false
   end
 end
 
@@ -100,5 +96,41 @@ doctest: temperature_convert method, given 0 degree rankine should return -273.1
 => -273.15
 doctest: temperature_convert method, given 0 degree rankine should return 0 kelvin
 >> convert_temperature(0, "rankine", "kelvin").round(2)
+=> 0.00
+doctest: temperature_convert method, given 0 degree celsius should return 32 fahrenheit
+>> convert_temperature(0, "c", "f").round(2)
+=> 32.00
+doctest: temperature_convert method, given 0 degree fahrenheit should return -17.78 celsius
+>> convert_temperature(0, "f", "c").round(2)
+=> -17.78
+doctest: temperature_convert method, given 0 degree kelvin should return -273.15 celsius
+>> convert_temperature(0, "k", "c").round(2)
+=> -273.15
+doctest: temperature_convert method, given 184 degree kelvin should return -128.47 fahrenheit
+>> convert_temperature(184, "k", "f").round(2)
+=> -128.47
+doctest: temperature_convert method, given 0 degree rankine should return -273.15 celsius
+>> convert_temperature(0, "r", "c").round(2)
+=> -273.15
+doctest: temperature_convert method, given 0 degree rankine should return 0 kelvin
+>> convert_temperature(0, "r", "k").round(2)
+=> 0.00
+doctest: temperature_convert method, given 0 degree celsius should return 32 fahrenheit
+>> convert_temperature(0, "cel", "fah").round(2)
+=> 32.00
+doctest: temperature_convert method, given 0 degree fahrenheit should return -17.78 celsius
+>> convert_temperature(0, "fah", "cel").round(2)
+=> -17.78
+doctest: temperature_convert method, given 0 degree kelvin should return -273.15 celsius
+>> convert_temperature(0, "kel", "cel").round(2)
+=> -273.15
+doctest: temperature_convert method, given 184 degree kelvin should return -128.47 fahrenheit
+>> convert_temperature(184, "kel", "fah").round(2)
+=> -128.47
+doctest: temperature_convert method, given 0 degree rankine should return -273.15 celsius
+>> convert_temperature(0, "ran", "cel").round(2)
+=> -273.15
+doctest: temperature_convert method, given 0 degree rankine should return 0 kelvin
+>> convert_temperature(0, "ran", "kel").round(2)
 => 0.00
 =end

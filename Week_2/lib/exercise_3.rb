@@ -11,45 +11,49 @@
 # Method to split a given string at end of line
 #
 def split_string(string)
+  result = ""
   total_line_length = "#{string.lines.count}".length
   string.each_line.with_index do |line, index|
-    puts "Line #{(index+1).to_s.rjust(total_line_length, "0")}: #{line.chomp}"
+    result << "Line #{(index+1).to_s.rjust(total_line_length, "0")}: #{line.chomp}\n"
   end
+  return result
 end
 
+# Test string
 input_string = "Welcome to the forum.\nHere you can learn Ruby.\nAlong with other members.\n"
+# Duplicating the test string 7 times to generate 24 lines for testing purpose
 7.times { input_string << "Welcome to the forum.\nHere you can learn Ruby.\nAlong with other members.\n" }
 
 begin
-  split_string(input_string)
+  puts split_string(input_string)
 end if __FILE__ == $0
 
 # Ruby
 =begin
 doctest: split_string(input_string)
 >> split_string(input_string)
-=> Line 01: Welcome to the forum.
-=> Line 02: Here you can learn Ruby.
-=> Line 03: Along with other members.
-=> Line 04: Welcome to the forum.
-=> Line 05: Here you can learn Ruby.
-=> Line 06: Along with other members.
-=> Line 07: Welcome to the forum.
-=> Line 08: Here you can learn Ruby.
-=> Line 09: Along with other members.
-=> Line 10: Along with other members.
-=> Line 11: Welcome to the forum.
-=> Line 12: Here you can learn Ruby.
-=> Line 13: Along with other members.
-=> Line 14: Welcome to the forum.
-=> Line 15: Here you can learn Ruby.
-=> Line 16: Along with other members.
-=> Line 17: Welcome to the forum.
-=> Line 18: Here you can learn Ruby.
-=> Line 19: Along with other members.
-=> Line 20: Along with other members.
-=> Line 21: Welcome to the forum.
-=> Line 22: Here you can learn Ruby.
-=> Line 23: Along with other members.
-=> Line 24: Welcome to the forum.
+=> "Line 01: Welcome to the forum.\n\
+    Line 02: Here you can learn Ruby.\n\
+    Line 03: Along with other members.\n\
+    Line 04: Welcome to the forum.\n\
+    Line 05: Here you can learn Ruby.\n\
+    Line 06: Along with other members.\n\
+    Line 07: Welcome to the forum.\n\
+    Line 08: Here you can learn Ruby.\n\
+    Line 09: Along with other members.\n\
+    Line 10: Welcome to the forum.\n\
+    Line 11: Here you can learn Ruby.\n\
+    Line 12: Along with other members.\n\
+    Line 13: Welcome to the forum.\n\
+    Line 14: Here you can learn Ruby.\n\
+    Line 15: Along with other members.\n\
+    Line 16: Welcome to the forum.\n\
+    Line 17: Here you can learn Ruby.\n\
+    Line 18: Along with other members.\n\
+    Line 19: Welcome to the forum.\n\
+    Line 20: Here you can learn Ruby.\n\
+    Line 21: Along with other members.\n\
+    Line 22: Welcome to the forum.\n\
+    Line 23: Here you can learn Ruby.\n\
+    Line 24: Along with other members.\n"
 =end

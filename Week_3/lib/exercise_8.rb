@@ -8,7 +8,7 @@
   * Licensed under the MIT license
 =end
 
-def fizbuzz(hash, number)
+def fizbuzz(hash={}, number=0)
   str = hash.map { |key, value| value.to_s if number % key == 0 }.compact.join('')
   str.empty? ? number : str
 end
@@ -17,5 +17,7 @@ end
 # Fizbuzz normal
 (1..100).each { |element| puts fizbuzz({3 => :Fizz, 5 => :Buzz}, element) }
 
-
-(1..100).each { |element| puts fizbuzz({3 => :Fizz, 5 => :Buzz, 7 => :Dazz}, element) }
+# Fizzbuzz Challenge
+(1..100).each do |element| 
+  puts fizbuzz({3 => :Fizz, 5 => :Buzz, 7 => :Dazz, 11 => :Kezz}, element) 
+end

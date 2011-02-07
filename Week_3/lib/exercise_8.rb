@@ -15,9 +15,9 @@ end
 
 
 # Fizbuzz normal
-(1..100).each { |element| puts fizbuzz({3 => :Fizz, 5 => :Buzz}, element) }
+#(1..100).each { |element| puts fizbuzz({3 => :Fizz, 5 => :Buzz}, element) }
 
 # Fizzbuzz Challenge
-(1..100).each do |element| 
+(1..1100).each do |element| 
   puts fizbuzz({3 => :Fizz, 5 => :Buzz, 7 => :Dazz, 11 => :Kezz}, element) 
 end

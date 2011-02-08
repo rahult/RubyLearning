@@ -25,7 +25,7 @@ class Dog
   end
 
   def teach_trick(name, &trick)
-    @tricks[name] = (block_given? ? trick : "") unless @tricks.has_key?(name)
+    @tricks[name] = (block_given? ? trick : "") if !@tricks.has_key?(name) or !@tricks[name].is_a?(Proc)
   end
 
   def do_trick(name)
@@ -39,6 +39,8 @@ class Dog
       "#{@name} doesn't know how to #{method_name_sym}!"
     end
   end
+
+  private :already_known_tricks
 
 end
 

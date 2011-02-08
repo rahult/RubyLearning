@@ -9,17 +9,16 @@
 =end
 
 class Rectangle
-
   def initialize(x=0, y=0)
     @x, @y = x, y
   end
 
   def area
-    @x * @y
+    @area ||= (@x * @y)
   end
 
   def perimeter
-    2 * (@x + @y)
+    @perimeter ||= (2 * (@x + @y))
   end
 
 end

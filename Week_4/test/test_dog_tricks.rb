@@ -57,7 +57,17 @@ describe Dog do
     end
   end
 
-  describe "when dog is asked to perform a trick it does not konws" do
+  describe "when dog is taught a complete version of an incomplete sitting trick" do
+    before do
+      @dog.teach_trick(:sit) { "#{@name} is sitting down!" }
+    end
+
+    it "must respond with sitting down" do
+      @dog.sit.must_equal "Snowy is sitting down!"
+    end
+  end
+
+ describe "when dog is asked to perform a trick it does not konws" do
     it "must respond with that it does not know how to cry!" do
       @dog.cry.must_equal "Snowy doesn't know how to cry!"
     end

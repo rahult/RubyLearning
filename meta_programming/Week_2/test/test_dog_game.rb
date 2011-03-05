@@ -19,13 +19,13 @@ describe Dog do
     end
   end
 
-  describe "when dog's is taught a new trick" do
-    it "must learn the new trick if it is capable of learning" do
-      skip
+  describe "when dog's is asked to perform tricks it has learned" do
+    it "must respond with dancing" do
+      @dog.dance.must_equal "Snowy is dancing"
     end
 
-    it "must respond with" do
-      skip
+    it "must respond with laughing" do
+      @dog.laugh.must_equal "Snowy finds this hilarious!"
     end
   end
 

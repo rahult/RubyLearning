@@ -23,7 +23,7 @@ animal.singleton_class.send(:remove_method, :speak)
 
 
 # define_method & lambda combined
-animal.singleton_class.send(:define_method, :speak, Proc.new { puts 'Dog says Woof! (define_method)' })
+animal.singleton_class.send(:define_method, :speak, -> { puts 'Dog says Woof! (define_method)' })
 
 animal.speak  #=> 'Dog says Woof!'
 p animal.singleton_methods
@@ -72,7 +72,6 @@ animal.singleton_class.send(:undef_method, :speak)
 
 
 # send, lambda
-# see define_method
 
 # animal.speak  #=> 'Dog says Woof!'
 # animal.singleton_class.send(:remove_method, :speak)

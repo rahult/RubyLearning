@@ -1,43 +1,39 @@
-require './dwemthy'
+# creatures.rb
 
 class IndustrialRaverMonkey < Creature
   life 46
-  strength 35
-  charisma 91
-  weapon 2
+  strength 5
 end
 
 class DwarvenAngel < Creature
-  life 540
-  strength 6
-  charisma 144
-  weapon 50
+  life 54
+  strength 8
 end
 
-class AssistantViceTentacleAndOmbudsman < Creature
-  life 320
-  strength 6
-  charisma 144
-  weapon 50
-end
+class Rabbit < Creature
+  life 20
+  strength 2
 
-class TeethDeer < Creature
-  life 655
-  strength 192
-  charisma 19
-  weapon 109
-end
+  def ^(enemy)
+    show_msg enemy do |e|
+      fight e, 5 * [strength, strength/2, 0].sample
+    end
+  end
 
-class IntrepidDecomposedCyclist < Creature
-  life 901
-  strength 560
-  charisma 422
-  weapon 105
-end
+  def /(enemy)
+    show_msg enemy do |e|
+      fight e, 10 * [strength, strength/2, 0].sample
+    end
+  end
 
-class Dragon < Creature
-  life 1340     # tough scales
-  strength 451  # bristling veins
-  charisma 1020 # toothy smile
-  weapon 939    # fire breath
+  def %(enemy)
+    show_msg enemy do
+      self.life += rand(10)
+    end
+  end
+
+  def fight enemy, damage
+    enemy.life -= damage
+    self.life -= enemy.strength
+  end
 end

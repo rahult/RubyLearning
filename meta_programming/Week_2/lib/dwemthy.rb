@@ -71,6 +71,11 @@ class Creature
     end
   end
 
+  def show_msg( enemy, &block )
+    puts "****** MSG #{enemy}"
+    # yield if block_given?
+  end
+
 end
 
 class DwemthysArray < Array

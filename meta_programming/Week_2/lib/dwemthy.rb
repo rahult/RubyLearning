@@ -1,6 +1,9 @@
 class Creature
   TRAITS = [:life, :strength]
 
+  # Set up an accessor to store life value before fighting value
+  attr_accessor :life_before_fighting
+
   def self.method_missing(method_name_sym, *args)
     # Thanks to Samang for giving me the tip to
     # use super in Second Week Assignment 1 Part 2
@@ -11,15 +14,7 @@ class Creature
   end
 
   def initialize
-    self.class.instance_variables.each do |trait|
-      instance_variable_set(trait, self.class.instance_variable_get(trait))
-    end
-
-    # Set up an accessor to store life value before fighting value
-    self.class.instance_eval do
-      attr_accessor :life_before_fighting
-      life_before_fighting = 0
-    end
+    setup_traits
   end
 
   def show_msg(enemy)
@@ -48,5 +43,13 @@ class Creature
 
   def to_s
     "#{self.class} #{self.life}"
+  end
+
+  private
+
+  def setup_traits
+    self.class.instance_variables.each do |trait|
+      instance_variable_set(trait, self.class.instance_variable_get(trait))
+    end
   end
 end

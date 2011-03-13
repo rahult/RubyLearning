@@ -21,18 +21,15 @@ class Dog
     @name = name
   end
 
-  def can(*tricks, &trick)
-    tricks.each do |t|
-      (class << self; self; end).class_eval do
-        define_method(t) do
-          "#{block_given? ? instance_eval(&trick) : (name + " " + MSGS[t])}"
-        end
-      end
+  def can(*tricks, &block)
+    tricks.each do |trick|
+      block = lambda {"#{name} #{MSGS[trick]}"} unless block_given?
+      singleton_class.send(:define_method, trick, &block)
     end
   end
 
   def method_missing(method_name_sym, *args, &block)
-    "#{@name} doesn't understand #{method_name_sym}"
+    "#{@name} doesn't understand #{method_name_sym}" if MSGS.key?(method_name_sym)
   end
 
 end
